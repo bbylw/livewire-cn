@@ -1,0 +1,629 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+
+const title = 'Livewire 4 中文指南｜浏览器本地交互演示';
+const description = 'Livewire 4 中文指南，保留官方快速上手、组件示例、FAQ 与文档入口，并以浏览器本地校验和当前页面预览演示发布流程。';
+---
+
+<BaseLayout title={title} description={description}>
+    <div class="site-frame">
+        <Header />
+
+        <main id="main-content">
+            <section class="hero-section page-shell" aria-labelledby="hero-title">
+                <div class="hero-copy">
+                    <p class="eyebrow reveal"><span class="eyebrow-dot" aria-hidden="true"></span>中文 Livewire 指南 / 2026</p>
+                    <h1 id="hero-title" class="hero-title reveal reveal-delay-1">把动态界面，<br><span>写回 PHP。</span></h1>
+                    <p class="hero-lede reveal reveal-delay-2">不把页面交给另一套运行时。用 Laravel 组合 PHP，用 Livewire 把状态、校验和反馈留在同一条清晰的路径上。</p>
+                    <div class="hero-actions reveal reveal-delay-3">
+                        <a class="primary-button" href="#publish">开始预览一篇 <span aria-hidden="true">↘</span></a>
+                        <a class="text-link" href="#guide">先读能力 <span aria-hidden="true">↓</span></a>
+                    </div>
+                    <p class="hero-note reveal reveal-delay-4">单文件组件 · 浏览器本地校验 · 当前页面预览</p>
+                </div>
+
+                <div class="hero-visual reveal reveal-delay-2" aria-hidden="true">
+                    <div class="hero-card">
+                        <div class="hero-card-top">
+                            <span>FIELD NOTE</span>
+                            <span>04 / PHP</span>
+                        </div>
+                        <div class="hero-card-number">04</div>
+                        <div class="hero-card-rule"></div>
+                        <p class="hero-card-kicker">PHP → LIVEWIRE</p>
+                        <h2 class="hero-card-title">让状态有来处，<br>让反馈有去处。</h2>
+                        <p class="hero-card-copy">一份单文件组件，承载表单、规则与回声。</p>
+                        <div class="hero-card-foot">
+                            <code translate="no">wire:submit="publish"</code>
+                            <span>↗</span>
+                        </div>
+                    </div>
+                    <div class="hero-stamp">
+                        <span>动态界面</span>
+                        <strong>回到 PHP</strong>
+                    </div>
+                </div>
+            </section>
+
+            <section id="guide" class="guide-section page-shell section-block" aria-labelledby="guide-title">
+                <div class="section-heading">
+                    <p class="section-kicker reveal">01 / 交互的秩序</p>
+                    <h2 id="guide-title" class="section-title reveal reveal-delay-1">复杂的事情，<br><span>留在服务端。</span></h2>
+                    <p class="section-intro reveal reveal-delay-2">Livewire 让浏览器负责呈现，让 PHP 负责判断。你写下的每一行规则，都离业务更近。</p>
+                    <p class="section-note reveal reveal-delay-2">以下内容介绍真实 Livewire 应用的工作方式；当前 Astro 静态站只阅读这些概念，不运行 Livewire。</p>
+                </div>
+
+                <div class="capability-list">
+                    <article class="capability-row reveal reveal-delay-1">
+                        <span class="capability-index">01</span>
+                        <div class="capability-copy">
+                            <h3>状态，和页面在一起</h3>
+                            <p>字段绑定到组件属性，提交时不需要另写一套状态管理。</p>
+                        </div>
+                        <code class="capability-code">public string $title = '';</code>
+                    </article>
+                    <article class="capability-row reveal reveal-delay-2">
+                        <span class="capability-index">02</span>
+                        <div class="capability-copy">
+                            <h3>校验，交给 PHP</h3>
+                            <p>在真实应用中，必填、长度和字段名称都在服务端确认，反馈直接回到输入框。</p>
+                        </div>
+                        <code class="capability-code">$this-&gt;validate(...)</code>
+                    </article>
+                    <article class="capability-row reveal reveal-delay-3">
+                        <span class="capability-index">03</span>
+                        <div class="capability-copy">
+                            <h3>反馈，留在当前页</h3>
+                            <p>发布结果只存在于组件内存，读完即走，不给数据库添负担。</p>
+                        </div>
+                        <code class="capability-code">wire:loading</code>
+                    </article>
+                </div>
+            </section>
+
+            <section id="quickstart" class="quickstart-section page-shell section-block" aria-labelledby="quickstart-title">
+                <div class="section-heading">
+                    <p class="section-kicker reveal">02 / 从零开始</p>
+                    <h2 id="quickstart-title" class="section-title reveal reveal-delay-1">五步，<br><span>跑起第一个组件。</span></h2>
+                    <p class="section-intro reveal reveal-delay-2">下面是 Livewire 4 官方快速上手的中文骨架，可以对照 <a class="text-link" href="https://livewire.laravel.com/docs/4.x/quickstart">4.x 快速上手</a> 一起读。先理解这条链路，再用本页的静态演示体验浏览器本地校验。</p>
+                    <p class="section-intro reveal reveal-delay-2">官方要求 Laravel 10 及以上、PHP 8.1 及以上；本页内容以 Laravel 13 与 PHP 8.4 为例，完全兼容这条官方流程。</p>
+                </div>
+
+                <div class="quickstart-body">
+                    <ol class="quickstart-steps">
+                        <li class="quickstart-step reveal reveal-delay-1">
+                            <span class="capability-index">01</span>
+                            <div>
+                                <h3>安装 Livewire</h3>
+                                <p>在 Laravel 项目根目录引入 Livewire 4，不需要再配前端框架。</p>
+                                <pre class="code-panel"><code translate="no">composer require livewire/livewire</code></pre>
+                            </div>
+                        </li>
+                        <li class="quickstart-step reveal reveal-delay-2">
+                            <span class="capability-index">02</span>
+                            <div>
+                                <h3>生成页面布局</h3>
+                                <p>布局负责引入样式、脚本，并用 <code translate="no">&#123;&#123; $slot &#125;&#125;</code> 留出组件位置。</p>
+                                <pre class="code-panel"><code translate="no">php artisan livewire:layout</code></pre>
+                            </div>
+                        </li>
+                        <li class="quickstart-step reveal reveal-delay-3">
+                            <span class="capability-index">03</span>
+                            <div>
+                                <h3>创建一个页面组件</h3>
+                                <p>用页面组件名前缀保持整洁，生成后即可得到一个单文件组件。文件名中的闪电符号只是为了在编辑器中快速识别，也可以在配置中关闭。</p>
+                                <pre class="code-panel"><code translate="no">php artisan make:livewire pages::post.create</code></pre>
+                            </div>
+                        </li>
+                        <li class="quickstart-step reveal reveal-delay-4">
+                            <span class="capability-index">04</span>
+                            <div>
+                                <h3>写状态、动作和模板</h3>
+                                <p>属性保存状态，方法处理提交，模板只负责呈现和反馈。</p>
+                                <pre class="code-panel"><code translate="no">public string $title = '';
+
+public function save(): void
+&#123;
+    $this-&gt;validate(['title' =&gt; 'required']);
+&#125;</code></pre>
+                            </div>
+                        </li>
+                        <li class="quickstart-step reveal reveal-delay-4">
+                            <span class="capability-index">05</span>
+                            <div>
+                                <h3>注册路由并访问</h3>
+                                <p>把组件挂到路由上，打开页面即可看到无刷新表单。</p>
+                                <pre class="code-panel"><code translate="no">Route::livewire('/post/create', 'pages::post.create');</code></pre>
+                            </div>
+                        </li>
+                    </ol>
+
+                    <div class="quickstart-detail reveal">
+                        <h3>官方示例组件全文</h3>
+                        <p>把下面这份代码放进 <code translate="no">resources/views/pages/post/⚡create.blade.php</code>，就是官方演示用的文章表单。注意它刻意没有样式，重点是状态、校验和提交；以下代码只作说明，不会在 Astro 页面运行。</p>
+                        <pre class="code-panel"><code translate="no">&lt;?php
+
+use Livewire\Component;
+
+new class extends Component
+&#123;
+    public string $title = '';
+
+    public string $content = '';
+
+    public function save()
+    &#123;
+        $this-&gt;validate([
+            'title' =&gt; 'required|max:255',
+            'content' =&gt; 'required',
+        ]);
+
+        dd($this-&gt;title, $this-&gt;content);
+    &#125;
+&#125;;
+?&gt;
+
+&lt;form wire:submit="save"&gt;
+    &lt;label&gt;
+        Title
+        &lt;input type="text" wire:model="title"&gt;
+        &#64;error('title') &lt;span&gt;&#64;&#123;&#123; $message &#125;&#125;&lt;/span&gt; &#64;enderror
+    &lt;/label&gt;
+
+    &lt;label&gt;
+        Content
+        &lt;textarea wire:model="content" rows="5"&gt;&lt;/textarea&gt;
+        &#64;error('content') &lt;span&gt;&#64;&#123;&#123; $message &#125;&#125;&lt;/span&gt; &#64;enderror
+    &lt;/label&gt;
+
+    &lt;button type="submit"&gt;Save Post&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+                    </div>
+
+                    <dl class="explain-list reveal" aria-label="官方示例代码解释">
+                        <div>
+                            <dt>组件属性</dt>
+                            <dd><code translate="no">$title</code> 和 <code translate="no">$content</code> 保存用户输入，是组件在服务端的状态。</dd>
+                        </div>
+                        <div>
+                            <dt>组件方法</dt>
+                            <dd><code translate="no">save()</code> 在提交时被调用，先校验，再用 <code translate="no">dd()</code> 输出结果，方便确认数据链路。</dd>
+                        </div>
+                        <div>
+                            <dt>绑定指令</dt>
+                            <dd><code translate="no">wire:submit</code> 阻止整页刷新并调用方法；<code translate="no">wire:model</code> 把输入框和属性连起来；<code translate="no">&#64;error</code> 负责在字段下方显示错误。</dd>
+                        </div>
+                        <div>
+                            <dt>校验时机</dt>
+                            <dd>在真实 Livewire 应用中，输入时不会频繁请求服务器，点提交后才统一校验；如果想边填边校验，可以继续看官方实时校验文档。</dd>
+                        </div>
+                    </dl>
+
+                    <div class="quickstart-detail reveal">
+                        <h3>生产环境一般怎么写</h3>
+                        <p>演示用 <code translate="no">dd()</code> 停下来看数据，真实项目通常是写入数据库再跳转。</p>
+                        <pre class="code-panel"><code translate="no">public function save()
+&#123;
+    $validated = $this-&gt;validate([
+        'title' =&gt; 'required|max:255',
+        'content' =&gt; 'required',
+    ]);
+
+    Post::create($validated);
+
+    return $this-&gt;redirect('/posts');
+&#125;</code></pre>
+                    </div>
+
+                    <div class="quickstart-detail reveal">
+                        <h3>提交状态也属于 Livewire 模板</h3>
+                        <p>在真实 Livewire 表单中，可以用加载指令禁用按钮、切换文案并播报进度；本页静态演示使用原生 JavaScript 实现相同状态。</p>
+                        <pre class="code-panel"><code translate="no">&lt;button type="submit"
+    wire:loading.attr="disabled"
+    wire:target="publish"&gt;
+    &lt;span wire:loading.remove wire:target="publish"&gt;发布文章&lt;/span&gt;
+    &lt;span wire:loading wire:target="publish"&gt;正在发布…&lt;/span&gt;
+&lt;/button&gt;</code></pre>
+                    </div>
+
+                    <div class="quickstart-detail reveal">
+                        <h3>动手验证两次</h3>
+                        <ol class="check-list">
+                            <li><p>在真实 Livewire 应用中空表单直接提交，应该在两个字段下方看到服务端返回的错误，而且页面没有刷新。</p></li>
+                            <li><p>填好标题和内容再提交，应该能看到提交成功后的数据回显；在本页则使用浏览器本地校验与当前页面预览。</p></li>
+                        </ol>
+                    </div>
+                </div>
+            </section>
+
+            <section id="publish" class="publish-section section-block" aria-labelledby="publish-title">
+                <div class="page-shell publish-layout">
+                    <div class="publish-intro reveal">
+                        <p class="section-kicker">03 / 发布台</p>
+                        <h2 id="publish-title" class="section-title">写一段，<br><span>立即看见回声。</span></h2>
+                        <p class="section-intro">这是静态站演示：内容由浏览器本地校验，只在当前页面预览，不会发送到服务器，也不会运行 Livewire。</p>
+
+                        <dl class="rule-list" aria-label="本页演示的本地校验规则">
+                            <div>
+                                <dt>文章标题</dt>
+                                <dd>必填，最多 80 个字符；错误会回到标题输入框。</dd>
+                            </div>
+                            <div>
+                                <dt>文章内容</dt>
+                                <dd>必填，最多 2000 个字符；错误会回到内容输入框。</dd>
+                            </div>
+                            <div>
+                                <dt>预览结果</dt>
+                                <dd>只保存在当前页面内存，刷新页面即消失。</dd>
+                            </div>
+                        </dl>
+
+                        <ol class="publish-list">
+                            <li><span>01</span><p>填写标题与内容</p></li>
+                            <li><span>02</span><p>浏览器执行本地校验</p></li>
+                            <li><span>03</span><p>在当前页面阅读预览</p></li>
+                        </ol>
+                    </div>
+
+                    <div class="publish-card reveal reveal-delay-1">
+                        <div class="publish-card-heading">
+                            <div>
+                                <p class="card-kicker">ARTICLE / 001</p>
+                                <h3>预览一篇文章</h3>
+                            </div>
+                            <span class="livewire-badge">静态站演示</span>
+                        </div>
+
+                        <form class="publish-form" data-publish-form aria-describedby="publish-note" novalidate>
+                            <div class="field-group">
+                                <div class="field-label-row">
+                                    <label class="field-label" for="title">文章标题</label>
+                                    <span class="field-hint">最多 80 字</span>
+                                </div>
+                                <input
+                                    class="field-input"
+                                    id="title"
+                                    name="title"
+                                    type="text"
+                                    autocomplete="off"
+                                    aria-invalid="false"
+                                    aria-describedby="title-error"
+                                    maxlength="80"
+                                    placeholder="例如：让界面回到 PHP……"
+                                    aria-required="true"
+                                    required
+                                >
+                                <p class="field-error" id="title-error" role="alert" hidden></p>
+                            </div>
+
+                            <div class="field-group">
+                                <div class="field-label-row">
+                                    <label class="field-label" for="content">文章内容</label>
+                                    <span class="field-hint">最多 2000 字</span>
+                                </div>
+                                <textarea
+                                    class="field-input field-textarea"
+                                    id="content"
+                                    name="content"
+                                    autocomplete="off"
+                                    aria-invalid="false"
+                                    aria-describedby="content-error"
+                                    maxlength="2000"
+                                    rows="7"
+                                    placeholder="写下一段想让人记住的话……"
+                                    aria-required="true"
+                                    required
+                                ></textarea>
+                                <p class="field-error" id="content-error" role="alert" hidden></p>
+                            </div>
+
+                            <div class="form-actions">
+                                <button class="primary-button" type="submit" data-submit-button>
+                                    <span data-submit-label>预览到当前页面</span>
+                                    <span data-loading-label hidden>正在本地处理…</span>
+                                </button>
+                                <p class="loading-status" role="status" aria-live="polite" data-loading-status hidden></p>
+                            </div>
+                            <p id="publish-note" class="form-note">浏览器本地校验 / 当前页面预览 · 内容不会上传或写入数据库。</p>
+                        </form>
+
+                        <article class="published-card" aria-live="polite" tabindex="-1" data-published-card hidden>
+                            <p class="published-meta"><span class="status-dot" aria-hidden="true"></span>已在当前页面预览</p>
+                            <h3 data-published-title></h3>
+                            <p class="published-content" data-published-content></p>
+                            <div class="published-footer">
+                                <span>LOCAL PREVIEW / ONLY</span>
+                                <button class="text-button" type="button" data-clear-published>清空结果，再写一篇</button>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <section id="faq" class="faq-section page-shell section-block" aria-labelledby="faq-title">
+                <div class="section-heading">
+                    <p class="section-kicker reveal">04 / 常见问题</p>
+                    <h2 id="faq-title" class="section-title reveal reveal-delay-1">先看这里，<br><span>少走弯路。</span></h2>
+                    <p class="section-intro reveal reveal-delay-2">这些都是 Livewire 4 新手最容易遇到的现场问题，对照检查即可。</p>
+                </div>
+
+                <div class="faq-list">
+                    <details class="reveal reveal-delay-1" open>
+                        <summary>提示组件找不到，应该先查哪里？</summary>
+                        <p>先确认组件文件路径与路由中的组件名一致，例如页面组件应为 <code translate="no">pages::post.create</code>。再检查文件名、命名空间分隔符和路由拼写是否完全对应。</p>
+                    </details>
+                    <details class="reveal reveal-delay-2">
+                        <summary>提交没有反应，也没有错误信息？</summary>
+                        <p>先检查布局里是否有 <code translate="no">&#64;livewireStyles</code> 和 <code translate="no">&#64;livewireScripts</code>，再打开浏览器控制台，看 Livewire 更新请求是否成功返回。</p>
+                    </details>
+                    <details class="reveal reveal-delay-2">
+                        <summary>访问页面返回 404，可能漏了哪一步？</summary>
+                        <p>多半是路由没有注册或路径不一致。请确认 <code translate="no">routes/web.php</code> 中已经挂载对应组件，然后用 <code translate="no">php artisan route:list</code> 核对实际路径。</p>
+                    </details>
+                    <details class="reveal reveal-delay-3">
+                        <summary>为什么组件只能有一个根元素？</summary>
+                        <p>Livewire 需要用一个稳定的根节点跟踪组件状态。把模板内容包在一个 <code translate="no">&lt;form&gt;</code> 或 <code translate="no">&lt;div&gt;</code> 里，更新和校验才不会错位。</p>
+                    </details>
+                    <details class="reveal reveal-delay-3">
+                        <summary>标题明明没超长，为什么还是校验失败？</summary>
+                        <p>先看失败的是必填还是长度。空提交会触发必填错误；只有真正超过 80 或 2000 个字符时，才会触发长度错误，页面会明确告诉你是哪一种。</p>
+                    </details>
+                </div>
+            </section>
+
+            <section id="next" class="next-section page-shell section-block" aria-labelledby="next-title">
+                <div class="section-heading">
+                    <p class="section-kicker reveal">05 / 下一步</p>
+                    <h2 id="next-title" class="section-title reveal reveal-delay-1">发布台之后，<br><span>读这五份文档。</span></h2>
+                    <p class="section-intro reveal reveal-delay-2">从组件结构开始，逐步进入属性、动作、表单和完整校验体系。也可以回到 <a class="text-link" href="https://livewire.laravel.com/docs">Livewire 官网</a> 阅读英文原文。</p>
+                </div>
+
+                <div class="next-list">
+                    <a class="next-row reveal reveal-delay-1" href="https://livewire.laravel.com/docs/4.x/components">
+                        <span class="stack-number">01</span>
+                        <span class="stack-copy"><h3>组件</h3><p>理解单文件组件、数据传递和页面组件的组织方式。</p></span>
+                        <span aria-hidden="true">↗</span>
+                    </a>
+                    <a class="next-row reveal reveal-delay-2" href="https://livewire.laravel.com/docs/4.x/properties">
+                        <span class="stack-number">02</span>
+                        <span class="stack-copy"><h3>属性</h3><p>掌握组件状态的声明、更新时机和生命周期。</p></span>
+                        <span aria-hidden="true">↗</span>
+                    </a>
+                    <a class="next-row reveal reveal-delay-2" href="https://livewire.laravel.com/docs/4.x/actions">
+                        <span class="stack-number">03</span>
+                        <span class="stack-copy"><h3>动作</h3><p>看懂方法调用、参数传递和事件处理方式。</p></span>
+                        <span aria-hidden="true">↗</span>
+                    </a>
+                    <a class="next-row reveal reveal-delay-3" href="https://livewire.laravel.com/docs/4.x/forms">
+                        <span class="stack-number">04</span>
+                        <span class="stack-copy"><h3>表单</h3><p>用更完整的表单能力处理绑定、提交和用户输入。</p></span>
+                        <span aria-hidden="true">↗</span>
+                    </a>
+                    <a class="next-row reveal reveal-delay-3" href="https://livewire.laravel.com/docs/4.x/validation">
+                        <span class="stack-number">05</span>
+                        <span class="stack-copy"><h3>校验</h3><p>学会实时校验、自定义规则和完整的错误反馈。</p></span>
+                        <span aria-hidden="true">↗</span>
+                    </a>
+                </div>
+            </section>
+
+            <section id="contribute" class="contribute-section page-shell section-block" aria-labelledby="contribute-title">
+                <div class="section-heading">
+                    <p class="section-kicker reveal">06 / 参与与许可</p>
+                    <h2 id="contribute-title" class="section-title reveal reveal-delay-1">用完指南，<br><span>也可以参与上游。</span></h2>
+                    <p class="section-intro reveal reveal-delay-2">以下入口来自 Livewire 官方 README：贡献、行为准则、安全反馈和开源许可都在这里。</p>
+                </div>
+
+                <div class="contribute-body">
+                    <div class="next-list">
+                        <a class="next-row reveal reveal-delay-1" href="https://github.com/livewire/livewire/blob/4.x/.github/CONTRIBUTING.md">
+                            <span class="stack-number">01</span>
+                            <span class="stack-copy"><h3>贡献指南</h3><p>想修文档、提 Issue 或提交代码，先读官方贡献流程。</p></span>
+                            <span aria-hidden="true">↗</span>
+                        </a>
+                        <a class="next-row reveal reveal-delay-2" href="https://laravel.com/docs/contributions#code-of-conduct">
+                            <span class="stack-number">02</span>
+                            <span class="stack-copy"><h3>行为准则</h3><p>参与 Laravel 社区讨论时，请遵守对所有人友好的行为准则。</p></span>
+                            <span aria-hidden="true">↗</span>
+                        </a>
+                        <a class="next-row reveal reveal-delay-2" href="https://github.com/livewire/livewire/security/policy">
+                            <span class="stack-number">03</span>
+                            <span class="stack-copy"><h3>安全反馈</h3><p>发现安全漏洞不要公开讨论，请按官方安全策略私下报告。</p></span>
+                            <span aria-hidden="true">↗</span>
+                        </a>
+                        <a class="next-row reveal reveal-delay-3" href="https://github.com/livewire/livewire/blob/4.x/LICENSE.md">
+                            <span class="stack-number">04</span>
+                            <span class="stack-copy"><h3>MIT 许可</h3><p>Livewire 是开源软件，基于 MIT 许可证发布。</p></span>
+                            <span aria-hidden="true">↗</span>
+                        </a>
+                    </div>
+
+                    <div class="quickstart-detail reveal">
+                        <h3>参与本体开发的起点</h3>
+                        <p>如果要直接参与 Livewire 框架本身，可以克隆官方仓库并用一条命令装好开发环境。</p>
+                        <pre class="code-panel"><code translate="no">git clone git@github.com:livewire/livewire.git &amp;&amp; cd livewire
+composer setup</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section id="stack" class="stack-section page-shell section-block" aria-labelledby="stack-title">
+                <div class="section-heading section-heading--stack">
+                    <p class="section-kicker reveal">07 / 技术栈</p>
+                    <h2 id="stack-title" class="section-title reveal reveal-delay-1">少一点切换，<br><span>多一点连贯。</span></h2>
+                    <p class="section-intro reveal reveal-delay-2">从真实 Livewire 项目的路由到构建，再回到当前静态站的发布链路，页面本身不依赖 UI 框架。</p>
+                </div>
+
+                <div class="stack-list">
+                    <div class="stack-row reveal reveal-delay-1">
+                        <span class="stack-number">01</span>
+                        <div class="stack-copy"><h3>Laravel 13</h3><p>真实应用中，路由、会话与验证保持在同一条 PHP 请求链上。</p></div>
+                        <span class="stack-tag">后端</span>
+                    </div>
+                    <div class="stack-row reveal reveal-delay-2">
+                        <span class="stack-number">02</span>
+                        <div class="stack-copy"><h3>Livewire 4</h3><p>单文件组件承载状态、动作与页面内反馈；当前页面仅展示官方用法。</p></div>
+                        <span class="stack-tag stack-tag--accent">交互</span>
+                    </div>
+                    <div class="stack-row reveal reveal-delay-3">
+                        <span class="stack-number">03</span>
+                        <div class="stack-copy"><h3>Bun + Astro</h3><p>用 Bun 安装依赖，用 Astro 生成可部署到 GitHub Pages 的静态站。</p></div>
+                        <span class="stack-tag">构建</span>
+                    </div>
+                    <div class="stack-row reveal reveal-delay-4">
+                        <span class="stack-number">04</span>
+                        <div class="stack-copy"><h3>原生 CSS + 原生 JS</h3><p>不引入 Tailwind、React 或 Vue，动效与表单都服务于阅读。</p></div>
+                        <span class="stack-tag">界面</span>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <Footer />
+    </div>
+
+    <script is:inline>
+        (() => {
+            const form = document.querySelector('[data-publish-form]');
+
+            if (!(form instanceof HTMLFormElement)) {
+                return;
+            }
+
+            const titleInput = form.elements.namedItem('title');
+            const contentInput = form.elements.namedItem('content');
+            const submitButton = form.querySelector('[data-submit-button]');
+            const submitLabel = form.querySelector('[data-submit-label]');
+            const loadingLabel = form.querySelector('[data-loading-label]');
+            const loadingStatus = form.querySelector('[data-loading-status]');
+            const publishedCard = document.querySelector('[data-published-card]');
+            const publishedTitle = document.querySelector('[data-published-title]');
+            const publishedContent = document.querySelector('[data-published-content]');
+            const clearPublishedButton = document.querySelector('[data-clear-published]');
+
+            if (
+                !(titleInput instanceof HTMLInputElement) ||
+                !(contentInput instanceof HTMLTextAreaElement) ||
+                !(submitButton instanceof HTMLButtonElement) ||
+                !(submitLabel instanceof HTMLElement) ||
+                !(loadingLabel instanceof HTMLElement) ||
+                !(loadingStatus instanceof HTMLElement) ||
+                !(publishedCard instanceof HTMLElement) ||
+                !(publishedTitle instanceof HTMLElement) ||
+                !(publishedContent instanceof HTMLElement) ||
+                !(clearPublishedButton instanceof HTMLButtonElement)
+            ) {
+                return;
+            }
+
+            const titleError = document.querySelector('#title-error');
+            const contentError = document.querySelector('#content-error');
+
+            if (
+                !(titleError instanceof HTMLElement) ||
+                !(contentError instanceof HTMLElement)
+            ) {
+                return;
+            }
+
+            const messages = {
+                titleRequired: '请先写下文章标题。',
+                titleMax: '文章标题不能超过 80 个字符。',
+                contentRequired: '请写下文章内容。',
+                contentMax: '文章内容不能超过 2000 个字符。',
+            };
+
+            const setLoading = (isLoading) => {
+                form.setAttribute('aria-busy', String(isLoading));
+                submitButton.disabled = isLoading;
+                submitLabel.hidden = isLoading;
+                loadingLabel.hidden = !isLoading;
+                loadingStatus.hidden = !isLoading;
+            };
+
+            const clearFieldError = (input, error) => {
+                input.setAttribute('aria-invalid', 'false');
+                error.hidden = true;
+                error.textContent = '';
+            };
+
+            const showFieldError = (input, error, message) => {
+                input.setAttribute('aria-invalid', 'true');
+                error.textContent = message;
+                error.hidden = false;
+            };
+
+            const validate = () => {
+                clearFieldError(titleInput, titleError);
+                clearFieldError(contentInput, contentError);
+
+                const title = titleInput.value.trim();
+                const content = contentInput.value.trim();
+                let firstInvalid = null;
+
+                if (!title) {
+                    showFieldError(titleInput, titleError, messages.titleRequired);
+                    firstInvalid = titleInput;
+                } else if (title.length > 80) {
+                    showFieldError(titleInput, titleError, messages.titleMax);
+                    firstInvalid = titleInput;
+                }
+
+                if (!content) {
+                    showFieldError(contentInput, contentError, messages.contentRequired);
+                    firstInvalid ??= contentInput;
+                } else if (content.length > 2000) {
+                    showFieldError(contentInput, contentError, messages.contentMax);
+                    firstInvalid ??= contentInput;
+                }
+
+                if (firstInvalid) {
+                    firstInvalid.focus();
+                    return null;
+                }
+
+                return { title, content };
+            };
+
+            titleInput.addEventListener('input', () => clearFieldError(titleInput, titleError));
+            contentInput.addEventListener('input', () => clearFieldError(contentInput, contentError));
+
+            form.addEventListener('submit', (event) => {
+                event.preventDefault();
+                const article = validate();
+
+                if (!article) {
+                    return;
+                }
+
+                setLoading(true);
+                loadingStatus.textContent = '正在浏览器本地校验并生成当前页面预览…';
+
+                window.setTimeout(() => {
+                    publishedTitle.textContent = article.title;
+                    publishedContent.textContent = article.content;
+                    form.reset();
+                    clearFieldError(titleInput, titleError);
+                    clearFieldError(contentInput, contentError);
+                    publishedCard.hidden = false;
+                    setLoading(false);
+                    loadingStatus.textContent = '预览已生成，内容仅存在当前页面内存。';
+                    loadingStatus.hidden = false;
+                    publishedCard.focus();
+                }, 420);
+            });
+
+            clearPublishedButton.addEventListener('click', () => {
+                publishedCard.hidden = true;
+                publishedTitle.textContent = '';
+                publishedContent.textContent = '';
+                form.reset();
+                loadingStatus.textContent = '结果已清空，可以再写一篇。';
+                loadingStatus.hidden = false;
+                titleInput.focus();
+            });
+        })();
+    </script>
+</BaseLayout>

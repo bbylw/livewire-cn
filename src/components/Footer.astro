@@ -1,0 +1,24 @@
+---
+import GitHubIcon from './GitHubIcon.astro';
+---
+
+<footer class="site-footer">
+    <div class="page-shell footer-main">
+        <div>
+            <p class="footer-brand">Livewire <span>中文指南</span></p>
+            <p class="footer-note">把交互留在浏览器，把决定留给 PHP。</p>
+        </div>
+        <nav class="footer-links" aria-label="项目仓库与官方文档">
+            <a class="icon-link" href="https://github.com/bbylw/livewire-cn" aria-label="livewire-cn 项目仓库">
+                <GitHubIcon />
+            </a>
+            <a href="https://livewire.laravel.com/docs/4.x/quickstart">快速上手</a>
+            <a href="https://livewire.laravel.com/docs">官方文档</a>
+        </nav>
+        <div class="footer-meta" aria-label="项目技术信息">
+            <span>Laravel 13</span>
+            <span>Livewire 4</span>
+            <span>Bun / Astro</span>
+        </div>
+    </div>
+</footer>

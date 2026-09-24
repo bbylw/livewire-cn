@@ -1338,8 +1338,13 @@ input.field-input {
     font-size: 0.6rem;
 }
 
-.reveal {
+.js .reveal {
     animation: rise-in 760ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-play-state: paused;
+}
+
+.js .reveal.is-revealed {
+    animation-play-state: running;
 }
 
 .reveal-delay-1 {

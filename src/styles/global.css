@@ -69,6 +69,7 @@ body::before {
     opacity: 0.32;
     background-image: linear-gradient(rgba(117, 91, 70, 0.055) 1px, transparent 1px), linear-gradient(90deg, rgba(117, 91, 70, 0.055) 1px, transparent 1px);
     background-size: 32px 32px;
+    -webkit-mask-image: linear-gradient(to bottom, black, transparent 78%);
     mask-image: linear-gradient(to bottom, black, transparent 78%);
 }
 
@@ -242,6 +243,15 @@ button {
     transform-origin: left;
 }
 
+.nav-link.is-active {
+    color: var(--ink);
+}
+
+.nav-link.is-active::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
 .nav-action {
     display: inline-flex;
     min-height: 44px;
@@ -276,12 +286,12 @@ button {
 
 .hero-section {
     display: grid;
-    min-height: 680px;
+    min-height: 640px;
     grid-template-columns: minmax(0, 1.12fr) minmax(330px, 0.88fr);
     align-items: center;
     gap: clamp(44px, 8vw, 120px);
-    padding-top: clamp(76px, 11vw, 148px);
-    padding-bottom: clamp(88px, 12vw, 170px);
+    padding-top: clamp(48px, 7vw, 96px);
+    padding-bottom: clamp(64px, 9vw, 120px);
 }
 
 .hero-copy {
@@ -340,9 +350,9 @@ button {
 }
 
 .hero-title {
-    max-width: 9ch;
-    font-size: clamp(3.65rem, 8.2vw, 7.7rem);
-    line-height: 0.98;
+    max-width: 12ch;
+    font-size: clamp(3.4rem, 7vw, 5.75rem);
+    line-height: 1.04;
 }
 
 .hero-title span,
@@ -411,8 +421,8 @@ button {
 }
 
 .hero-note {
-    margin: 74px 0 0;
-    color: var(--line-strong);
+    margin: 42px 0 0;
+    color: var(--muted);
     font-family: var(--mono);
     font-size: 0.67rem;
     letter-spacing: 0.06em;
@@ -585,8 +595,8 @@ button {
 }
 
 .section-title {
-    font-size: clamp(3rem, 6vw, 5.7rem);
-    line-height: 1.02;
+    font-size: clamp(2.5rem, 4.8vw, 3.9rem);
+    line-height: 1.08;
 }
 
 .section-intro {
@@ -731,6 +741,20 @@ button {
     font-size: 0.74rem;
     line-height: 1.7;
     tab-size: 4;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(247, 241, 231, 0.28) transparent;
+}
+
+.code-panel::-webkit-scrollbar {
+    height: 8px;
+}
+
+.code-panel::-webkit-scrollbar-thumb {
+    background: rgba(247, 241, 231, 0.28);
+}
+
+.code-panel::-webkit-scrollbar-track {
+    background: transparent;
 }
 
 .code-panel code {
@@ -1177,6 +1201,10 @@ input.field-input {
     content: '－';
 }
 
+.faq-list details[open] p {
+    animation: settle-in 320ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
 .faq-list p {
     max-width: 52ch;
     margin: 12px 0 0;
@@ -1447,8 +1475,8 @@ input.field-input {
     }
 
     .hero-title {
-        max-width: 10ch;
-        font-size: clamp(3rem, 14.5vw, 5.7rem);
+        max-width: 12ch;
+        font-size: clamp(2.9rem, 13vw, 4.6rem);
     }
 
     .hero-lede {
@@ -1560,7 +1588,7 @@ input.field-input {
     }
 
     .section-title {
-        font-size: 3rem;
+        font-size: 2.6rem;
     }
 }
 

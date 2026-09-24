@@ -506,6 +506,33 @@ composer setup</code></pre>
             }
 
             const form = document.querySelector('[data-publish-form]');
+            const navLinks = Array.from(document.querySelectorAll('.primary-nav .nav-link'));
+            const watchedSections = navLinks
+                .map((link) => document.querySelector(link.hash))
+                .filter((section) => section instanceof HTMLElement);
+
+            if ('IntersectionObserver' in window && watchedSections.length > 0) {
+                const spy = new IntersectionObserver((entries) => {
+                    for (const entry of entries) {
+                        if (!entry.isIntersecting) {
+                            continue;
+                        }
+
+                        navLinks.forEach((link) => {
+                            const isActive = link.hash === `#${entry.target.id}`;
+                            link.classList.toggle('is-active', isActive);
+
+                            if (isActive) {
+                                link.setAttribute('aria-current', 'true');
+                            } else {
+                                link.removeAttribute('aria-current');
+                            }
+                        });
+                    }
+                }, { rootMargin: '-40% 0px -55% 0px' });
+
+                watchedSections.forEach((section) => spy.observe(section));
+            }
 
             if (!(form instanceof HTMLFormElement)) {
                 return;
